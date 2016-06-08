@@ -13,6 +13,11 @@ function getTLsData(TL_cortexfile,clrchng_cortexfile,itemnum)
 %   1) Matlab file with the saved eye data including fixations and saccade
 %   times as well as pupil data (if it exists). Save Directory on line 341!
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%---Calibration Stuff---%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 samprate = 5;%number of ms between samples for ISCAN i.e. 200 Hz
 
 %---Import Color Change Data for Calibration---%
@@ -35,6 +40,8 @@ elseif strcmpi(init,'RR')==1
     clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Red\' clrchng_cortexfile];
 elseif strcmpi(init,'TO')==1
     clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Tobii\' clrchng_cortexfile];
+elseif strcmpi(init,'MF') == 1
+    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Manfred\' clrchng_cortexfile];
 end
 
 ITMFile = 'R:\Buffalo Lab\eblab\Cortex Programs\ClrChng\cch25.itm';
@@ -56,6 +63,7 @@ end
 [time_arr,event_arr,eog_arr,~,~,~]  = ...
     get_ALLdata(clrchng_cortexfile);
 
+%---read in item file---%
 itmfil=[];
 h =fopen(ITMFile);
 tline = 1;
@@ -75,6 +83,7 @@ while tline > 0
 end
 fclose(h);
 
+%---Read in condition file---%
 cndfil=[];
 h=fopen(CNDFile);
 tline = 1;
@@ -226,6 +235,10 @@ xlim([-17.5 17.5])
 ylim([-12.5 12.5])
 
 
+%%%%%%%%%%%%%%%%%%%%%
+%%%---TLs Stuff---%%%
+%%%%%%%%%%%%%%%%%%%%%
+
 %---Import Ts and Ls data---%
 init = TL_cortexfile(1:2); %monkey initials
 if strcmpi(init,'IW')==1 || strcmpi(init,'iw')==1
@@ -246,6 +259,8 @@ elseif strcmpi(init,'RR')==1 || strcmpi(init,'rr')==1
     TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Red\' TL_cortexfile];
 elseif strcmpi(init,'TO')==1 || strcmpi(init,'to')==1
     TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Tobii\' TL_cortexfile];
+elseif strcmpi(init,'MF') == 1
+    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Manfred\' TL_cortexfile];
 end
 [time_arr,event_arr,eog_arr,epp_arr,~,~]  = get_ALLdata(TL_cortexfile);
 
@@ -275,12 +290,12 @@ for rptlop = 1:numrpt
             per(valrptcnt).begsmpind = begtimdum;
             per(valrptcnt).endsmpind = endtimdum(1);
             per(valrptcnt).begpos = 1;
-            per(valrptcnt).cnd = event_arr(cndnumind,rptlop)-1000;
-            per(valrptcnt).blk = event_arr(blknumind,rptlop)-500;
-            per(valrptcnt).allval = event_arr(:,rptlop);
-            per(valrptcnt).alltim = time_arr(:,rptlop);
-            per(valrptcnt).event = rptlop;
-            per(valrptcnt).trialtype = event_arr(typnumind,rptlop);
+            per(valrptcnt).cnd = event_arr(cndnumind,rptlop)-1000; %condition number
+            per(valrptcnt).blk = event_arr(blknumind,rptlop)-500; %block number
+            per(valrptcnt).allval = event_arr(:,rptlop); %cortex codes
+            per(valrptcnt).alltim = time_arr(:,rptlop); %cortex timestamps for those codes
+            per(valrptcnt).event = rptlop; %trial number (not necessairly successful trial number)
+            per(valrptcnt).trialtype = event_arr(typnumind,rptlop); %novel (2)/repeat (1)
             new_eog_arr=cat(2,new_eog_arr,eog_arr(:,rptlop));
             if ~isempty(epp_arr);
                 new_epp_arr = cat(2,new_epp_arr,epp_arr(:,rptlop));
