@@ -23,29 +23,29 @@ samprate = 5;%number of ms between samples for ISCAN i.e. 200 Hz
 %---Import Color Change Data for Calibration---%
 init = clrchng_cortexfile(1:2); %monkey initials
 if strcmpi(init,'IW')==1
-    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Irwin\' clrchng_cortexfile];
+    clrchng_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Irwin\' clrchng_cortexfile];
 elseif strcmpi(init,'MP')==1
-    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Peepers\' clrchng_cortexfile];
+    clrchng_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Peepers\' clrchng_cortexfile];
 elseif strcmpi(init,'WR')==1
-    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Wilbur\' clrchng_cortexfile];
+    clrchng_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Wilbur\' clrchng_cortexfile];
 elseif strcmpi(init,'TT')==1 
-    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Timmy\' clrchng_cortexfile];
+    clrchng_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Timmy\' clrchng_cortexfile];
 elseif strcmpi(init,'JN')==1
-    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Guiseppe\' clrchng_cortexfile];
+    clrchng_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Guiseppe\' clrchng_cortexfile];
 elseif strcmpi(init,'TD')==1 
-    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Theodore\' clrchng_cortexfile];
+    clrchng_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Theodore\' clrchng_cortexfile];
 elseif strcmpi(init,'PW')==1
-    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Vivian\' clrchng_cortexfile];
+    clrchng_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Vivian\' clrchng_cortexfile];
 elseif strcmpi(init,'RR')==1
-    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Red\' clrchng_cortexfile];
+    clrchng_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Red\' clrchng_cortexfile];
 elseif strcmpi(init,'TO')==1
-    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Tobii\' clrchng_cortexfile];
+    clrchng_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Tobii\' clrchng_cortexfile];
 elseif strcmpi(init,'MF') == 1
-    clrchng_cortexfile=['R:\Buffalo Lab\Cortex Data\Manfred\' clrchng_cortexfile];
+    clrchng_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Manfred\' clrchng_cortexfile];
 end
 
-ITMFile = 'R:\Buffalo Lab\eblab\Cortex Programs\ClrChng\cch25.itm';
-CNDFile = 'R:\Buffalo Lab\eblab\Cortex Programs\ClrChng\cch25.cnd';
+ITMFile = '\\research.wanprc.org\research\Buffalo Lab\eblab\Cortex Programs\ClrChng\cch25.itm';
+CNDFile = '\\research.wanprc.org\research\Buffalo Lab\eblab\Cortex Programs\ClrChng\cch25.cnd';
 % this is different becasue the spacing is different and I don't have
 % a new item file on the network for the new spacing
 ind_spacex = [-6,-3,0,3,6]; %whats on the network
@@ -242,29 +242,29 @@ ylim([-12.5 12.5])
 %---Import Ts and Ls data---%
 init = TL_cortexfile(1:2); %monkey initials
 if strcmpi(init,'IW')==1 || strcmpi(init,'iw')==1
-    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Irwin\' TL_cortexfile];
+    TL_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Irwin\' TL_cortexfile];
 elseif strcmpi(init,'MP')==1 || strcmpi(init,'mp')==1
-    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Peepers\' TL_cortexfile];
+    TL_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Peepers\' TL_cortexfile];
 elseif strcmpi(init,'WR')==1 || strcmpi(init,'wr')==1
-    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Wilbur\' TL_cortexfile];
+    TL_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Wilbur\' TL_cortexfile];
 elseif strcmpi(init,'TT')==1 || strcmpi(init,'tt')==1
-    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Timmy\' TL_cortexfile];
+    TL_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Timmy\' TL_cortexfile];
 elseif strcmpi(init,'JN')==1 || strcmpi(init,'jn')==1
-    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Guiseppe\' TL_cortexfile];
+    TL_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Guiseppe\' TL_cortexfile];
 elseif strcmpi(init,'TD')==1 || strcmpi(init,'td')==1
-    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Theodore\' TL_cortexfile];
+    TL_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Theodore\' TL_cortexfile];
 elseif strcmpi(init,'PW')==1 || strcmpi(init,'pw')==1
-    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Vivian\' TL_cortexfile];
+    TL_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Vivian\' TL_cortexfile];
 elseif strcmpi(init,'RR')==1 || strcmpi(init,'rr')==1
-    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Red\' TL_cortexfile];
+    TL_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Red\' TL_cortexfile];
 elseif strcmpi(init,'TO')==1 || strcmpi(init,'to')==1
-    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Tobii\' TL_cortexfile];
+    TL_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Tobii\' TL_cortexfile];
 elseif strcmpi(init,'MF') == 1
-    TL_cortexfile=['R:\Buffalo Lab\Cortex Data\Manfred\' TL_cortexfile];
+    TL_cortexfile=['\\research.wanprc.org\research\Buffalo Lab\Cortex Data\Manfred\' TL_cortexfile];
 end
 [time_arr,event_arr,eog_arr,epp_arr,~,~]  = get_ALLdata(TL_cortexfile);
 
-%tloc = xlsread(['R:\Buffalo Lab\eblab\Tloc\Tloc'  num2str(itemnum) '.xls']);
+%tloc = xlsread(['\\research.wanprc.org\research\Buffalo Lab\eblab\Tloc\Tloc'  num2str(itemnum) '.xls']);
 %more lines are necessary for reading file information column 3 xpos and
 %column 4 ypos. Row by column number
 
