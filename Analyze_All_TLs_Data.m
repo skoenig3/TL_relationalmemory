@@ -31,27 +31,35 @@ data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\TL_relationalmemory\Eyedat\';
 %             482 483 485 486 488,...
 %             489 490 492 493 494];
 
-TL_files =       {'PW150518.2','PW150519.2','PW150520.2','PW150521.2','PW150522.2',...
-                  'PW150526.2','PW150527.2','PW150528.2','PW150529.2','PW150601.2',...
-                  'PW150602.2','PW150603.2','PW150604.2','PW150605.2','PW150608.2'};
-    
-clrchng_files =  {'PW150518.3','PW150519.1','PW150520.1','PW150521.1','PW150522.1',...
-                  'PW150526.1','PW150527.1','PW150528.1','PW150529.1','PW150601.1',...
-                  'PW150602.1','PW150603.1','PW150604.1','PW150605.1','PW150608.1'};
+%---Vivian Pre-Lesion Data---%
+% TL_files =       {'PW150518.2','PW150519.2','PW150520.2','PW150521.2','PW150522.2',...
+%                   'PW150526.2','PW150527.2','PW150528.2','PW150529.2','PW150601.2',...
+%                   'PW150602.2','PW150603.2','PW150604.2','PW150605.2','PW150608.2'};
+%     
+% clrchng_files =  {'PW150518.3','PW150519.1','PW150520.1','PW150521.1','PW150522.1',...
+%                   'PW150526.1','PW150527.1','PW150528.1','PW150529.1','PW150601.1',...
+%                   'PW150602.1','PW150603.1','PW150604.1','PW150605.1','PW150608.1'};
+% 
+% item_num = [500 501 502 503 504,...
+%             505 506 507 508 509,....
+%             510 511 512 513 514];
 
-item_num = [500 501 502 503 504,...
-            505 506 507 508 509,....
-            510 511 512 513 514];
-
-% for file = 11:length(TL_files)
-%     getTLsData(TL_files{file},clrchng_files{file},item_num(file))
-%     close all
-% end
+%---Vivian Post-Lesion Data---%
+TL_files =       {'PW160705.2','PW160706.2','PW160707.2','PW160708.3'};
+clrchng_files =  {'PW160705.1','PW160706.1','PW160707.1','PW160708.2'};
+item_num = [520 521 522 523];
+% 
+for file = length(TL_files)
+    getTLsData(TL_files{file},clrchng_files{file},item_num(file))
+    close all
+end
 %%
 %---[2] Analyze reaction times and number of saccades to find target---%
 
 max_desired_blocks = 40;%which blocks 1-max_desired_blocks to analyze
 
+novel_saccade_rate =  NaN(length(TL_files),max_desired_blocks);%avearge saccade rate by block
+repeat_saccade_rate =  NaN(length(TL_files),max_desired_blocks);%avearge saccade rate by block
 repeat_reactiontimes = NaN(length(TL_files),max_desired_blocks);%avearge reaction times by block
 novel_reactiontimes  = NaN(length(TL_files),max_desired_blocks);%avearge reaction times by block
 repeat_num_saccades  = NaN(length(TL_files),max_desired_blocks);%average number of saccades to find T
@@ -168,6 +176,9 @@ for  file = 1:length(TL_files)
             novel_reactiontimes(file,blk)  = nanmean(rts(2,:));%avearge reaction times by block
             repeat_num_saccades(file,blk)  = nanmean(num_sacs(1,:));%average number of saccades to find T
             novel_num_saccades(file,blk)   = nanmean(num_sacs(2,:));%average number of saccades to find T
+            novel_saccade_rate(file,blk)   = nanmean(1000*num_sacs(1,:)./rts(1,:));%avearge saccade rate 
+            repeat_saccade_rate(file,blk)   = nanmean(1000*num_sacs(2,:)./rts(2,:));%avearge saccade rate
+          
             
             novel_fix_duration{file,blk}   = nanmean(fixationdurations{1}(:,1:5));
             repeat_fix_duration{file,blk}   = nanmean(fixationdurations{2}(:,1:5));
@@ -197,6 +208,8 @@ repeat_reactiontimes(poor_quality_sessions,:) = NaN;
 novel_reactiontimes(poor_quality_sessions,:) = NaN;
 repeat_num_saccades(poor_quality_sessions,:) = NaN;
 novel_num_saccades(poor_quality_sessions,:) = NaN;
+repeat_saccade_rate(poor_quality_sessions,:) = NaN;
+novel_saccade_rate(poor_quality_sessions,:) = NaN;
 
 %% Plot Pupil data averaged over last 10 blocks, blocks 30-40
 all_rep = [];
@@ -332,3 +345,41 @@ set(gca,'Xtick',1:2)
 set(gca,'XtickLabel',{'Novel','Repeat'})
 xlabel('Context')
 ylabel('% of Saccades of novel block 1')
+
+%% Plot Saccade Rate by Block and Last 10 blocks
+figure
+subplot(1,2,1)
+hold on
+p(1) = errorbar(1:40,nanmean(repeat_saccade_rate(:,1:40)),nanstd(repeat_saccade_rate(:,1:40))...
+    ./sqrt(sum(~isnan(repeat_saccade_rate(:,1:40)))),'r');
+p(2) = errorbar(nanmean(novel_saccade_rate(:,1:40)),nanstd(novel_saccade_rate(:,1:40))...
+    ./sqrt(sum(~isnan(novel_saccade_rate(:,1:40)))),'b');
+hold off
+xlabel('Block #')
+ylabel('Reaction time (ms)')
+legend('Repeated','Novel','p<0.05','p < 0.01','p < 0.001','Location','SouthEast')
+yl = ylim;
+ylim([3 yl(2)]);
+xlim([0 41])
+
+last_block_sr_means_repeat = mean(repeat_saccade_rate(:,30:40),2);
+last_block_sr_means_novel = mean(novel_saccade_rate(:,30:40),2);
+[~,p_sr] = ttest(last_block_sr_means_repeat,last_block_sr_means_novel,'tail','both');
+
+subplot(1,2,2)
+hold on
+bar([mean(last_block_sr_means_novel) mean(last_block_sr_means_repeat)])
+errorb(1,mean(last_block_sr_means_novel),std(last_block_sr_means_novel)...
+    ./sqrt(length(last_block_sr_means_novel)))
+errorb(2,mean(last_block_sr_means_repeat),std(last_block_sr_means_repeat)...
+    ./sqrt(length(last_block_sr_means_repeat)))
+yl = ylim;
+if p_sr < 0.05
+   plot(1.5, yl(2),'*k')
+end
+hold off
+set(gca,'Xtick',1:2)
+set(gca,'XtickLabel',{'Novel','Repeat'})
+xlabel('Context')
+ylabel('Average Saccade Rate for Last 10 blocks')
+title('Saccade Rate')
