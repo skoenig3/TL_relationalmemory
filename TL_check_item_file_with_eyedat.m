@@ -2,7 +2,7 @@
 % code used to check if item file location line up with eye data in case
 % item files were confused or there was a typo in the log notes.
 
-% code requires that file has already been preprocessed by getTLsdData.m
+% code requires that file has already been preprocessed by getTLsData.m
 
 TL_file = 'RR150212.2';
 item_num = 435;%item # in log notes

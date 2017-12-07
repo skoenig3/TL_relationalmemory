@@ -1,14 +1,19 @@
-% code written to analyze all the Ts and Ls data
+% code written to analyze all the Ts and Ls data, but code does not run 
+% pre- vs post-lesion data. Code runs basic analysis on reaction times and
+% number of saccades to find T.
 % written by Seth Konig 2/9/15
 %
 % [1] Import task data and detect fixations and saccades.
+%   a) needs getTLsData.m function
+%   b) getTLsData.m requires path to network specified at top of code
 % [2] Analyze reaction times and number of saccades to find target.
 
 %%
 %---[1] Import task data and detect fixations and saccades---%
 
-data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\TL_relationalmemory\Eyedat\';
+data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\TL_relationalmemory\Eyedat\'; %where to find preprocessed data
 
+%---Red Pre-Lesion---%
 % TL_files =      {'RR150129.3','RR150130.3','RR150202.3','RR150205.3','RR150206.3',...
 %                  'RR150209.2','RR150210.2','RR150211.2','RR150213.2','RR150217.2',...
 %                  'RR150219.2','RR150220.2','RR150223.2','RR150224.2','RR150225.2'};
@@ -18,6 +23,19 @@ data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\TL_relationalmemory\Eyedat\';
 % item_num = [425 426 428 430 431,...
 %             432 433 434 435 436,...
 %             438 439 440 441 442];
+
+%---Red Post-Lesion---%
+% TL_files =      {'RR161012.2','RR161013.3','RR161014.2','RR161017.2','RR161018.2',...
+%                  'RR161019.2','RR161020.2','RR161024.2','RR161025.2','RR161026.2',...
+%                  'RR161027.2','RR161028.2','RR161101.2','RR161103.2'};
+% clrchng_files = {'RR161012.1','RR161013.1','RR161014.1','RR161017.1','RR161018.1',...
+%                   'RR161019.1','RR161020.1','RR161024.1','RR161025.1','RR161026.1',...
+%                  'RR161027.1','RR161028.1','RR161101.1','RR161103.1'};
+% item_num =      [489 491 492 493 494 ...
+%                  495 496 498 499 500 ...
+%                  501 502 504 505];
+
+%---Tobii Pre-Lesion---%
 
 % TL_files =      {'TO150211.2','TO150218.2','TO150219.2','TO150223.2','TO150224.2',...
 %                 'TO150225.2','TO150226.2','TO150302.2','TO150303.2','TO150305.2',...
@@ -30,6 +48,22 @@ data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\TL_relationalmemory\Eyedat\';
 % item_num = [475 478 479 480 481,...
 %             482 483 485 486 488,...
 %             489 490 492 493 494];
+
+%---Tobii Post-Lesion Re-acclimation---%
+% TL_files =      {'TO170502.2','TO170503.2','TO170504.2','TO170505.2','TO170508.2','TO170509.2'};
+% clrchng_files = {'TO170502.1','TO170503.1','TO170504.1','TO170505.1','TO170508.1','TO170509.1'};
+% item_num = [451 452 453 454 455 456];
+
+%---Tobii Post-Lesion Data Collection---%
+% TL_files =      {'TO170510.2','TO170511.2','TO170512.2','TO170515.2','TO170516.2',...
+%                 'TO170517.2','TO170518.2','TO170519.2','TO170523.2','TO170524.2',...
+%                 'TO170526.2','TO170530.2','TO170601.2','TO170605.2','TO170606.2'};
+% clrchng_files = {'TO170510.1','TO170511.1','TO170512.1','TO170515.1','TO170516.1',...
+%                 'TO170517.1','TO170518.1','TO170519.1','TO170523.1','TO170524.1',...
+%                 'TO170526.1','TO170530.1','TO170601.1','TO170605.1','TO170606.1'};
+% item_num = [425 426 428 429 430,...
+%             431 432 433 436 437,...
+%             439 440 442 443 444];
 
 %---Vivian Pre-Lesion Data---%
 % TL_files =       {'PW150518.2','PW150519.2','PW150520.2','PW150521.2','PW150522.2',...
@@ -45,14 +79,37 @@ data_dir = 'C:\Users\seth.koenig\Documents\MATLAB\TL_relationalmemory\Eyedat\';
 %             510 511 512 513 514];
 
 %---Vivian Post-Lesion Data---%
-TL_files =       {'PW160705.2','PW160706.2','PW160707.2','PW160708.3'};
-clrchng_files =  {'PW160705.1','PW160706.1','PW160707.1','PW160708.2'};
-item_num = [520 521 522 523];
-% 
-for file = length(TL_files)
-    getTLsData(TL_files{file},clrchng_files{file},item_num(file))
-    close all
-end
+%post lesion too a while to get the number of sets we needed AT were
+%feeding monkeys ~2x as much as they should on the weekends so wan't
+%motivated/was too full to work through 40+ blks
+% TL_files =       {'PW160705.2','PW160706.2','PW160707.2','PW160708.3','PW160713.2',...
+%                   'PW160720.2','PW160722.2','PW160727.2','PW160728.2','PW160804.2',...
+%                   'PW160805.2','PW160811.2','PW160818.2','PW160819.2','PW160823.2'};
+% clrchng_files =  {'PW160705.1','PW160706.1','PW160707.1','PW160708.2','PW160713.1',...
+%                   'PW160720.1','PW160722.1','PW160727.1','PW160728.1','PW160804.1',...
+%                   'PW160805.1','PW160811.1','PW160818.1','PW160819.1','PW160823.1'};
+% item_num =       [520 521 522 523 524 ...
+%                   529 531 534 535 538 ...
+%                   539 542 547 548 549];
+
+%---Manfred---%
+TL_files =      {'MF160920.2','MF160921.2','MF160922.2','MF160923.2','MF160926.2',...
+                 'MF160927.2','MF161003.2','MF161004.2','MF161006.2','MF161007.2',...
+                 'MF161011.2','MF161013.2','MF161014.2','MF161017.2','MF161018.2',...
+                 'MF161019.2'};
+clrchng_files = {'MF160920.1','MF160921.1','MF160922.1','MF160923.1','MF160926.1',...
+                 'MF160927.1','MF161003.1','MF161004.1','MF161007.1','MF161007.1',... %MF161006.1 not saved? using next session
+                 'MF161011.1','MF161013.1','MF161014.1','MF161017.1','MF161018.1',...
+                 'MF161019.1'};
+item_num = [425 426 428 429 430 ...
+            431 432 433 434 435 ...
+            436 437 438 439 440 ...
+            441 ] ;
+
+% for file = 1:length(TL_files)
+%     getTLsData(TL_files{file},clrchng_files{file},item_num(file))
+%     close all
+% end
 %%
 %---[2] Analyze reaction times and number of saccades to find target---%
 
@@ -124,6 +181,7 @@ for  file = 1:length(TL_files)
                     fix_on_T = times(find(events == 24))-trial_start-eyedata_start;
                     %not really fixated but image turns off
                 end
+                fix_on_T = fix_on_T(end);%in case theres's more than 1 code which happened in a few of Red's sets, extra 24 for something else
                 fix_on_cross = fix_on_cross(1);%first fixation is on crosshair to start trial
                 stimulus_on =  times(find(events == 23))-trial_start-eyedata_start;
                 stimulus_off = times(find(events == 24))-trial_start-eyedata_start;
@@ -356,7 +414,7 @@ p(2) = errorbar(nanmean(novel_saccade_rate(:,1:40)),nanstd(novel_saccade_rate(:,
     ./sqrt(sum(~isnan(novel_saccade_rate(:,1:40)))),'b');
 hold off
 xlabel('Block #')
-ylabel('Reaction time (ms)')
+ylabel('Saccade Rate (Hz)')
 legend('Repeated','Novel','p<0.05','p < 0.01','p < 0.001','Location','SouthEast')
 yl = ylim;
 ylim([3 yl(2)]);
