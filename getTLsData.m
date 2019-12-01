@@ -43,11 +43,20 @@ elseif strcmpi(init,'RR')==1
 elseif strcmpi(init,'TO')==1
     clrchng_cortexfile=[network_path 'Tobii\' clrchng_cortexfile];
 elseif strcmpi(init,'MF') == 1
-    clrchng_cortexfile=[network_path 'Manfred\' clrchng_cortexfile];
+    if str2double(clrchng_cortexfile(3:8)) > 180900
+        clrchng_cortexfile = ['C:\Users\seth.koenig\Documents\MATLAB\TL_relationalmemory\ManfredPostLesionTLsData\' clrchng_cortexfile];
+    else
+        clrchng_cortexfile=[network_path 'Manfred\' clrchng_cortexfile];
+    end
 end
 
-ITMFile = '\\towerexablox.wanprc.org\Buffalo\eblab\Cortex Programs\ClrChng\cch25.itm';
-CNDFile = '\\towerexablox.wanprc.org\Buffalo\eblab\Cortex Programs\ClrChng\cch25.cnd';
+if str2double(clrchng_cortexfile(end-7:end-2)) > 180900
+    ITMFile = 'C:\Users\seth.koenig\Documents\MATLAB\SSCM\Itm Files\Extra\CCH25.itm';
+    CNDFile = 'C:\Users\seth.koenig\Documents\MATLAB\SSCM\Itm Files\Extra\CCH25.CND';
+else
+    ITMFile = '\\towerexablox.wanprc.org\Buffalo\eblab\Cortex Programs\ClrChng\cch25.itm';
+    CNDFile = '\\towerexablox.wanprc.org\Buffalo\eblab\Cortex Programs\ClrChng\cch25.cnd';
+end
 % this is different becasue the spacing is different and I don't have
 % a new item file on the network for the new spacing
 ind_spacex = [-6,-3,0,3,6]; %whats on the network
@@ -262,7 +271,11 @@ elseif strcmpi(init,'RR')==1 || strcmpi(init,'rr')==1
 elseif strcmpi(init,'TO')==1 || strcmpi(init,'to')==1
     TL_cortexfile=[network_path 'Tobii\' TL_cortexfile];
 elseif strcmpi(init,'MF') == 1
-    TL_cortexfile=[network_path 'Manfred\' TL_cortexfile];
+    if str2double(TL_cortexfile(3:8)) > 180900
+        TL_cortexfile = ['C:\Users\seth.koenig\Documents\MATLAB\TL_relationalmemory\ManfredPostLesionTLsData\' TL_cortexfile];
+    else
+        TL_cortexfile=[network_path 'Manfred\' TL_cortexfile];
+    end
 end
 [time_arr,event_arr,eog_arr,epp_arr,~,~]  = get_ALLdata(TL_cortexfile);
 
